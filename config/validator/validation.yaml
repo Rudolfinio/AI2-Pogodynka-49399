@@ -1,0 +1,60 @@
+App\Entity\City:
+  properties:
+    name:
+      - NotBlank:
+          groups: ['create', 'edit']
+    country_code:
+      - NotBlank:
+          groups: ['create', 'edit']
+      - Length:
+          min: 2
+          max: 2
+          groups: ['create', 'edit']
+    latitude:
+          - NotBlank:
+              groups: [ 'create', 'edit' ]
+          - Range:
+              min: -90
+              max: 90
+              groups: [ 'create', 'edit' ]
+    longitude:
+          - NotBlank:
+              groups: [ 'create', 'edit' ]
+          - Range:
+              min: -180
+              max: 180
+              groups: [ 'create', 'edit' ]
+
+App\Entity\Weather:
+  properties:
+    date:
+      - NotBlank:
+          groups: ['create', 'edit']
+    celsius:
+      - NotBlank:
+          groups: ['create', 'edit']
+      - Range:
+          min: -40
+          max: 50
+          groups: ['create', 'edit']
+    humidity:
+      - NotBlank:
+          groups: ['create', 'edit']
+      - Range:
+          min: 0
+          max: 100
+          groups: ['create', 'edit']
+    pressure:
+      - NotBlank:
+          groups: ['create', 'edit']
+      - Range:
+          min: 1000
+          max: 1030
+          groups: ['create', 'edit']
+    airQuality:
+      - NotBlank:
+          groups: [ 'create', 'edit' ]
+      - Range:
+          min: 0
+          max: 100
+          groups: [ 'create', 'edit' ]

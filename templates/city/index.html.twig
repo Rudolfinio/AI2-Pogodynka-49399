@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}City index{% endblock %}
+
+{% block body %}
+    <h1>City index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Country_code</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for city in cities %}
+            <tr>
+                <td>{{ city.id }}</td>
+                <td>{{ city.name }}</td>
+                <td>{{ city.countryCode }}</td>
+                <td>{{ city.latitude }}</td>
+                <td>{{ city.longitude }}</td>
+                <td>
+                    {% if is_granted('ROLE_CITY_SHOW') %}
+                        <a href="{{ path('app_city_show', {'id': city.id}) }}">show</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_CITY_EDIT') %}
+                        <a href="{{ path('app_city_edit', {'id': city.id}) }}">edit</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_CITY_NEW') %}
+        <a href="{{ path('app_city_new') }}">Create new</a>
+    {% endif %}
+{% endblock %}

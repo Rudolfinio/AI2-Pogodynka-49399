@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Weather index{% endblock %}
+
+{% block body %}
+    <h1>Weather index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Celsius</th>
+                <th>Humidity</th>
+                <th>Pressure</th>
+                <th>AirQuality</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for weather in weather %}
+            <tr>
+                <td>{{ weather.id }}</td>
+                <td>{{ weather.date ? weather.date|date('Y-m-d') : '' }}</td>
+                <td>{{ weather.celsius }}</td>
+                <td>{{ weather.humidity }}</td>
+                <td>{{ weather.pressure }}</td>
+                <td>{{ weather.airQuality }}</td>
+                <td>
+                    {% if is_granted('ROLE_WEATHER_SHOW') %}
+                        <a href="{{ path('app_weather_show', {'id': weather.id}) }}">show</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_WEATHER_EDIT') %}
+                        <a href="{{ path('app_weather_edit', {'id': weather.id}) }}">edit</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_granted('ROLE_WEATHER_NEW') %}
+        <a href="{{ path('app_weather_new') }}">Create new</a>
+    {% endif %}
+{% endblock %}

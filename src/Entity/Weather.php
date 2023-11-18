@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\WeatherRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use function Symfony\Component\Translation\t;
 
 #[ORM\Entity(repositoryClass: WeatherRepository::class)]
 class Weather
@@ -23,7 +24,6 @@ class Weather
 
     #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: '0')]
     private ?string $celsius = null;
-
     #[ORM\Column]
     private ?int $humidity = null;
 
@@ -72,6 +72,11 @@ class Weather
         $this->celsius = $celsius;
 
         return $this;
+    }
+    public function getFahrenheit(): ?string
+    {
+        $celcius = $this->getCelsius();
+        return ($celcius * 9 / 5) + 32;
     }
 
     public function getHumidity(): ?int

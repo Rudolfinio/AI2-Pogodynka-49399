@@ -1,0 +1,4 @@
+city,country,date,celsius,fahrenheit
+{% for weather in weathers %}
+{{ city }},{{ country }},{{ weather.date | date('Y-m-d') }},{{ weather.celsius }},{{ weather.fahrenheit }}
+{% endfor %}
